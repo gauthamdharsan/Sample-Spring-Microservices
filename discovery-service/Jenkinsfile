@@ -16,6 +16,14 @@ node {
 
         stage('Image') {
             dir ('discovery-service') {
+                sudo usermod -a -G docker leo
+                sudo chmod g+rwx "/home/leo/.docker" -R
+                sudo chown "leo":"leo" /home/"leo"/.docker -R
+                sudo chmod 666 /var/run/docker.sock
+                docker kill $(docker ps -q)
+                docker rm $(docker ps -a -q)
+                docker run -d --name registry -p 5000:5000 registry
+
                 def app = docker.build "localhost:5000/discovery-service:${env.version}"
                 app.push()
             }
