@@ -16,8 +16,6 @@ node {
 
         stage('Image') {
             dir ('discovery-service') {
-                sudo usermod -a -G docker leo
-                sudo chmod g+rwx "/home/leo/.docker" -R
 
 
 
