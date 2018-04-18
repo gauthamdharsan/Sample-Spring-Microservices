@@ -20,9 +20,6 @@ node {
                 sudo chmod g+rwx "/home/leo/.docker" -R
 
 
-                docker kill $(docker ps -q)
-                docker rm $(docker ps -a -q)
-                docker run -d --name registry -p 5000:5000 registry
 
                 def app = docker.build "localhost:5000/discovery-service:${env.version}"
                 app.push()
